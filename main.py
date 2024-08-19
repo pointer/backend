@@ -32,8 +32,6 @@ if __name__ == "__main__":
     # current_dir = os.path.dirname(os.path.abspath(__file__))
     # parent_dir = os.path.dirname(current_dir)
     # sys.path.append(current_dir)
-    # HOST = os.getenv("HOST")  # , '127.0.0.1')
-    # PORT = os.getenv("PORT")  # , 8443)
     # ssl_cert = os.getenv('CERT_FILE', '../certs/example.com+5.pem')
     # ssl_key = os.getenv('KEY_FILE', '../certs/example.com+5-key.pem')
     # # If cert or key file not present, create new certs
@@ -59,6 +57,8 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO,
                         format='%(asctime)s - %(levelname)s - %(message)s')
     logging.info(f"WORKER STARTING with pid {os.getpid()}")
+    HOST = os.environ.get('HOST', '0.0.0.0')
+    PORT = int(os.environ.get('PORT', 8000))
     config = uvicorn.Config(
         app,
         host=HOST,
