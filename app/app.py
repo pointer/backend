@@ -66,7 +66,7 @@ app = FastAPI(lifespan=lifespan)
 app.add_middleware(HTTPSRedirectMiddleware)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://cra-5cc1c9a7f4d3.herokuapp.com", "*"],
+    allow_origins=["https://cra-5cc1c9a7f4d3.herokuapp.com/", "http://localhost:5173", "*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
