@@ -51,16 +51,16 @@ async def lifespan(app: FastAPI):
     await create_db_and_tables()
     yield
 
-ssl_cert = os.getenv("CERT_FILE", '../certs/example.com+5.pem')
-ssl_key = os.getenv("KEY_FILE", '../certs/example.com+5-key.pem')
-if not os.path.isfile(ssl_cert) or not os.path.isfile(ssl_key):
-    from os.path import dirname as up
+# ssl_cert = os.getenv("CERT_FILE", '../certs/example.com+5.pem')
+# ssl_key = os.getenv("KEY_FILE", '../certs/example.com+5-key.pem')
+# if not os.path.isfile(ssl_cert) or not os.path.isfile(ssl_key):
+#     from os.path import dirname as up
 
-    dir = up(up(up(__file__)))
+#     dir = up(up(up(__file__)))
 
-    cert_file_path = os.path.join(dir, "certs")
-    ssl_cert = os.path.join(cert_file_path, "example.com+5.pem")
-    ssl_key = os.path.join(cert_file_path, "example.com+5-key.pem")
+#     cert_file_path = os.path.join(dir, "certs")
+#     ssl_cert = os.path.join(cert_file_path, "example.com+5.pem")
+#     ssl_key = os.path.join(cert_file_path, "example.com+5-key.pem")
 # app = FastAPI(ssl_keyfile=ssl_key, ssl_certfile=ssl_cert, lifespan=lifespan)
 app = FastAPI(lifespan=lifespan)
 app.add_middleware(HTTPSRedirectMiddleware)
@@ -168,8 +168,7 @@ async def register(
             approver=created_user.approver
         )
     except UserAlreadyExists:
-        logger.error(f"Registration failed: User with email {
-                     user.email} already exists")
+        logger.error(f"Registration failed: User with email {user.email} already exists")
         raise HTTPException(
             status_code=400,
             detail="REGISTER_USER_ALREADY_EXISTS",
