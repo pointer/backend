@@ -19,43 +19,19 @@ from dotenv import load_dotenv
 # Load the .env file
 load_dotenv(".env")
 
-
-# mysql> SHOW VARIABLES LIKE 'char%'; SHOW VARIABLES LIKE 'collation%';
-# +--------------------------+----------------------------+
-# | Variable_name            | Value                      |
-# +--------------------------+----------------------------+
-# | character_set_client     | utf8mb4                    |
-# | character_set_connection | utf8mb4                    |
-# | character_set_database   | utf8mb4                    |
-# | character_set_filesystem | binary                     |
-# | character_set_results    | utf8mb4                    |
-# | character_set_server     | utf8mb4                    |
-# | character_set_system     | utf8                       |
-# | character_sets_dir       | /usr/share/mysql/charsets/ |
-# +--------------------------+----------------------------+
-
-# +----------------------+--------------------+
-# | Variable_name        | Value              |
-# +----------------------+--------------------+
-# | collation_connection | utf8mb4_general_ci |
-# | collation_database   | utf8mb4_unicode_ci |
-# | collation_server     | utf8mb4_unicode_ci |
-# +----------------------+--------------------+
-
-# DATABASE_URL = "sqlite+aiosqlite:///./effort-tracking.db"
 DB_USER = os.getenv("DB_USER")
 DB_PASS = os.getenv("DB_PASS")
 DB_HOST = os.getenv("DB_HOST")
 DB_PORT = os.getenv("DB_PORT")
 DB_NAME = os.getenv("DB_NAME")
-ic(DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME)
+# ic(DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME)
 
-DB_URL = f'mysql+aiomysql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}?charset=utf8mb4'
+DB_URL = f'mysql+aiomysql://{DB_USER}:{DB_PASS}@{ DB_HOST}:{DB_PORT}/{DB_NAME}?charset=utf8mb4'
 # DB_URL = f'mysql+aiomysql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}?charset=utf8mb4&auth_plugin=mysql_native_password'
 # DB_URL = 'mysql+aiomysql://{}:{}@{}:{}/{}?charset=utf8mb4&collation=utf8mb4_general_ci'.format(
 # DB_URL = 'mysql+aiomysql://{}:{}@{}:{}/{}?charset=utf8mb4'.format(
 #     DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME)
-ic(DB_URL)
+# ic(DB_URL)
 
 
 class Base(DeclarativeBase):
