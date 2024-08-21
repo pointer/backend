@@ -211,7 +211,7 @@ async def login(
         user=user.email,
         id=user.id,
         is_active=user.is_active,
-        role=user.is_superuser,
+        role=user.role,
         working_days=working_days
     )
     # print(">>>>>>>>>>>>>Login Response: ", respnse)
