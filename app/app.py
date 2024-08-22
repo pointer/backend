@@ -79,7 +79,7 @@ class LoginResponse(BaseModel):
     user: str
     id: int
     is_active: bool
-    role: bool
+    role: str
     working_days: int
 
 
