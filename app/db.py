@@ -33,6 +33,8 @@ DB_URL = f'mysql+aiomysql://{DB_USER}:{DB_PASS}@{ DB_HOST}:{DB_PORT}/{DB_NAME}?c
 #     DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME)
 # ic(DB_URL)
 
+# DB_URL = f'mysql+aiomysql://b5631ad8bf8466:096795c1@eu-cluster-west-01.k8s.cleardb.net/heroku_3f4f708d06dd6aa?charset=utf8mb4'
+
 
 class Base(DeclarativeBase):
     pass

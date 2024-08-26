@@ -6,15 +6,18 @@ from app.schemas import ApprobationCreate, ApprobationUpdate, ApprobationRead, T
 from app.users import current_active_user, User
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-
+from icecream import ic
 router = APIRouter()
 
 
-@router.post("/approbation", response_model=ApprobationRead)
+@router.post("/save_approbation", response_model=ApprobationRead)
+# @router.post("/save_approbation",response_model=List[ApprobationRead])
 async def create_approbation(approbation: ApprobationCreate, user: User = Depends(current_active_user), db: AsyncSession = Depends(get_async_session)):
     approbation_data = approbation.model_dump()
-    approbation_data['supervisor_id'] = user.id
-    
+    supervisor_id = int(approbation_data['supervisor_id'])
+    approbation_data['supervisor_id'] = supervisor_id
+    # user_id = int(approbation_data['user_id'])
+    # approbation_data['user_id'] = user_id
     # Ensure timesheet_id is an integer
     timesheet_id = int(approbation_data['timesheet_id'])
     approbation_data['timesheet_id'] = timesheet_id
@@ -38,6 +41,7 @@ async def create_approbation(approbation: ApprobationCreate, user: User = Depend
 async def read_approbations(skip: int = 0, limit: int = 100, user: User = Depends(current_active_user), db: AsyncSession = Depends(get_async_session)):
     result = await db.execute(select(timesheet).offset(skip).limit(limit))
     approbations = result.scalars().all()
+    # ic(approbations)
     return approbations
 
 
@@ -52,12 +56,12 @@ async def read_approbation(month: str, approver: int, user: User = Depends(curre
     timesheets = result.all()
     if not timesheets:
         raise HTTPException(status_code=404, detail="Timesheets not found")
-
+    # ic(timesheets)
     timesheet_list = [
         {**timesheet.__dict__, 'first_name': first_name, 'last_name': last_name}
         for timesheet, first_name, last_name in timesheets
     ]
-
+    ic(timesheet_list)
     return timesheet_list
 
 

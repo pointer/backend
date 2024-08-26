@@ -256,6 +256,13 @@ app.include_router(
     # dependencies=[Depends(fastapi_users.current_user())]
 )
 
+app.include_router(
+    approbation_router,
+    prefix="/api",
+    tags=["save_approbation"]
+    # dependencies=[Depends(fastapi_users.current_user())]
+)
+
 
 @app.get("/authenticated-route")
 async def authenticated_route(user: User = Depends(current_active_user)):
